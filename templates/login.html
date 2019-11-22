@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style>
+    .login-container {
+        background-image: url("/static/assets/pizza_4.jpg");
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #login {
+        text-align: center;
+        width: 50%;
+        background: rgba(255, 255, 255, 0.75);
+        padding: 50px 25px;
+    }
+
+    .component-container {
+        vertical-align: top;
+        margin: 25px auto;
+    }
+
+    .component {
+        display: inline-block;
+        /*background: pink;*/
+        text-align: center;
+        padding: 10px;
+    }
+
+    .component.primary {
+        width: 20%;
+    }
+
+    .component.primary i {
+        font-size: 50px;
+        margin: 15px 25px;
+    }
+
+    .component.secondary {
+        font-size: 25px;
+    }
+
+    .login-bar {
+        width: 75%;
+        margin: auto;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div id="login">
+        <div>
+            <h1>Buy Sell Leftovers</h1>
+            <h5>A New Food Sharing Network</h5>
+            <p>
+                No food, look for it here.
+                Extra food, share it here.
+            </p>
+        </div>
+        <div class="login-bar">
+            <form action="/login-validation" method="GET">
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">@</span>
+                    </div>
+                    <input name="user" placeholder="Username" class="form-control" required>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-dark" type="submit" id="button-addon2">
+                            Log In
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="component-container">
+            <div class="component primary">
+                <i class="fas fa-utensils"></i>
+                <div>Minimize Food Insecurity</div>
+            </div>
+            <div class="component secondary">
+                <i class="fas fa-plus"></i>
+            </div>
+            <div class="component primary">
+                <i class="far fa-trash-alt"></i>
+                <div>Minimize Food Wastage</div>
+            </div>
+            <div class="component secondary">
+                <i class="fas fa-equals"></i>
+            </div>
+            <div class="component primary">
+                <i class="fas fa-heartbeat"></i>
+                <div>Maximize Wellness</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style>
+	.home-container {
+		/*background-image: url("/static/assets/pizza_4.jpg");*/
+		height: 100%;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	#home {
+		text-align: center;
+		width: 50%;
+		/*background: gray;*/
+	}
+
+	.launch-btn {
+		width: 100%;
+	}
+
+	.component {
+		display: inline-block;
+		/*background: pink;*/
+		width: 45%;
+		padding: 10px;
+		border-radius: 10px;
+	}
+
+	.component i {
+		font-size: 75px;
+		margin: 25px;
+	}
+
+	.gray-bkgd {
+		background: gainsboro;
+	}
+
+	.gray-border {
+		border: 1px solid gainsboro;
+	}
+
+	.title {
+		margin-bottom: 25px;
+	}
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="home-container">
+	<div id="home">
+		<h2 class="title">A different kind of marketplace.</h2>
+		<div class="component gray-bkgd">
+			<i class="far fa-sad-tear"></i>
+			<h4>Feeling Hungry</h4>
+			<p>
+				No meal swipes, time to cook, or money to eat out everyday? No worries!
+				You can find FREE food close to you. Just type
+				in the search bar what you're craving--pizza, donuts, or even protein
+				powder--and browse through the results to find a listing that's good for
+				you. Check the location and the comments
+			</p>
+			<div>
+				<a href="/item-listing" class="btn btn-outline-dark launch-btn" role="button">
+					<h2>Browse</h2>
+				</a>
+			</div>
+		</div>
+		<div class="component gray-border">
+			<i class="fas fa-drumstick-bite"></i>
+			<h4>Feeling Full</h4>
+			<p>
+				Leftover food from a floor, club, or recruiting event? Don't throw it away,
+				share it with other hungry students. Even if it's just a bag of chips or old eggs,
+				use this platform to minimize waste. Leftover food from a floor, club, or recruiting event?
+				Don't throw it away, share it with other hungry students.
+			</p>
+			<div>
+				<a href="/item-add" class="btn btn-outline-dark launch-btn" role="button">
+					<h2>Post</h2>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

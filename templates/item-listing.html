@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block js %}
+<script src="../static/item-listing.js"></script>
+<script>var results = {{data|tojson}}</script>
+{% endblock %}
+
+{% block style %}
+<style>
+
+	.listing-container {
+		margin: 50px 25px;
+	}
+
+	.card {
+		display: inline-block;
+		margin: 25px 0px;
+		width: 100%;
+		vertical-align: top;
+		transition: transform .15s;
+	}
+
+	.card:hover {
+		transform: scale(1.1);
+	}
+
+	.card-info {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.fa-heart {
+		color: deeppink;
+	}
+
+	.item-details {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+	}
+
+
+	form {
+		text-align: center;
+		width: 50%;
+		margin: auto;
+	}
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="listing-container">
+	<div class="center">
+		<form action="/item-listing" method="GET">
+			<div class="form-group input-group">
+				<input name="search" placeholder="Search" class="form-control">
+					<div class="input-group-append">
+    				<button class="btn btn-outline-dark" type="submit" id="button-addon2">
+    					<i class="fas fa-search"></i>
+    				</button>
+  				</div>
+			</div>
+		</form>
+	</div>
+
+	<div>
+		<div id="listing" class="row">
+		    <div class="col">
+		    </div>
+		    <div class="col">
+		    </div>
+		    <div class="col">
+		    </div>
+		    <div class="col">
+		    </div>
+	  	</div>
+	</div>
+</div>
+{% endblock %}

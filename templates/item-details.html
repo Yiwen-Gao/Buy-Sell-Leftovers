@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block js %}
+<script src="../static/item-details.js"></script>
+<script>var item = {{item|tojson}}</script>
+<script>var user = {{user|tojson}}</script>
+{% endblock %}
+
+{% block style %}
+<style>
+
+	.details-container {
+		width: 50%;
+		margin: 50px auto;
+		border: 1px solid lightgray;
+	}
+
+	.text-container {
+		padding: 10px 25px;
+	}
+
+	img {
+		max-width: 100%;
+		min-width: 100%;
+	}
+
+	.button-group {
+		padding: 5px 0px;
+	}
+
+	.pink {
+		color: deeppink;
+	}
+
+	.like-btn, .edit-btn, .delete-btn {
+		font-size: 25px;
+		margin: 0px 10px 0px 0px;
+		padding: 0px;
+		transition: transform .15s;
+	}
+
+	.like-btn:hover, .edit-btn:hover, .delete-btn:hover {
+		transform: scale(1.2);
+		cursor: pointer;
+	}
+
+	.vertical-padding {
+		padding: 10px 0px;
+	}
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="details-container">
+	<img data="image">
+	<div class="text-container">
+		<h1 class="title"></h1>
+		<div class="button-group">
+			<button class="btn like-btn" data-action="like">
+				<i class="far fa-heart"></i>
+			</button>
+			<a href="#" class="btn edit-btn" data-action="edit">
+				<i class="far fa-edit"></i>
+			</a>
+			<a href="#" class="btn delete-btn" data-action="delete">
+				<i class="far fa-trash-alt"></i>
+			</a>
+		</div>
+
+		<div>
+			<span data="likes"></span>
+		</div>
+
+		<h1 data="title"></h1>
+		<div>
+			<span data="location"></span> |
+			<span data="date"></span>
+		</div>
+		<div>
+			<strong data="user"></strong>
+			<span data="description"></span>
+		</div>
+		<div data="tags"></div>
+
+		<div data="comments" class="vertical-padding"></div>
+		<div class="form-group input-group">
+			<input name="new-comment" placeholder="Add a comment..." class="form-control">
+			<div class="input-group-append">
+				<button data-action="add-comment" class="btn btn-outline-dark" id="button-addon2">
+					Submit
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
