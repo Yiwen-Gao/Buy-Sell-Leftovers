@@ -1,9 +1,23 @@
 $(document).ready(function() {
 
+    window.onscroll = () => {
+        if (window.pageYOffset > $("[data-role='navbar']").height()) {
+            $("#back-btn").removeClass("normal-back-btn");
+            $("#back-btn").addClass("sticky-back-btn");
+        }
+        else {
+            $("#back-btn").removeClass("sticky-back-btn");
+            $("#back-btn").addClass("normal-back-btn");            
+        }
+    };
+
 	$("[data-action='like']").click(() => {
-		$.ajax({
+		if (user in item["likes"])
+            return;
+
+        $.ajax({
             type: "GET",
-            url: `/item-like-toggle/${item["id"]}`,
+            url: `/item-like/${item["id"]}`,
             dataType: "json",
             success: function(result) {
                 item = result["item"];
@@ -19,14 +33,15 @@ $(document).ready(function() {
         });
 	});
 
-	$("[data-action='add-comment']").click(() => {
-		const data = {
-			id: item["id"],
-			comment: $("input[name='new-comment']").val()
-		};
+    var submitComment = () => {
+        const data = {
+            id: item["id"],
+            comment: $("input[name='new-comment']").val()
+        };
         $("input[name='new-comment']").val("");
+        console.log(data)
 
-		$.ajax({
+        $.ajax({
             type: "POST",
             url: "/item-comment",
             dataType: "json",
@@ -44,7 +59,14 @@ $(document).ready(function() {
                 console.log(error);
             }
         });
-	});
+    };
+
+    $("input[name='new-comment']").keydown((event) => {
+        if (event.key === "Enter")
+            submitComment();
+    });
+
+    $("[data-action='comment']").click(submitComment);
 
 	var displayComments = () => {
         $("[data='comments']").empty();
@@ -58,35 +80,45 @@ $(document).ready(function() {
             container.append(comment);
             $("[data='comments']").append(container);
         });
-	}
+	};
 
 	var displayButtonGroup = () => {
         $(".like-btn").empty();
-        const likeBtn = item["likedByUser"] ? $("<i class='fas fa-heart pink'></i>") : $("<i class='far fa-heart'></i>");
+        const likeBtn = user in item["likes"] ? $("<i class='fas fa-heart pink'></i>") : $("<i class='far fa-heart'></i>");
         $(".like-btn").append(likeBtn);
 
         if (user !== item["user"]) {
         	$(".edit-btn").addClass("disabled");
 			$(".delete-btn").addClass("disabled");
 		}
-	}
+	};
 
 	var display = () => {
 		$("[data='image']").attr("src", item["image"]);
 		displayButtonGroup();
-		const amt = item["likes"].length == 1 ? " like" : " likes";
-		$("[data='likes']").html(item["likes"].length + amt);
+
+        const num = Object.keys(item["likes"]).length;
+		const amt = num == 1 ? " like" : " likes";
+		$("[data='likes']").html(num + amt);
 
         $("[data='title']").html(item["title"]);
-		$("[data='location']").html(item["location"]);
-		$("[data='date']").html(item["date"]);
+		$("[data='location']").html(`<i class="fas fa-map-marker-alt"></i>${item["location"]}`);
+        const date = new Date(item["createdTime"]);
+        const formattedDate = date.toLocaleString("default", {
+            "month": "short",
+            "day": "numeric",
+            "hour": "numeric",
+            "minute": "numeric"
+        });
+		$("[data='date']").html(`<i class="fas fa-calendar"></i>${formattedDate}`);
         $("[data='user']").html(item["user"]);
 		$("[data='description']").html(item["description"]);
-		displayComments();
+		$("input[name='new-comment']").attr("placeholder", `Leave a question, comment, or concern for @${item["user"]}...`);
+        displayComments();
 
 		$("[data-action='edit']").attr("href", `/item-edit/${item["id"]}`);
 		$("[data-action='delete']").attr("href", `/item-delete/${item["id"]}`);
-	}
+	};
 
 	display();
 });

@@ -11,7 +11,7 @@
 
 	.details-container {
 		width: 50%;
-		margin: 50px auto;
+		margin: 10px auto 50px;
 		border: 1px solid lightgray;
 	}
 
@@ -44,14 +44,33 @@
 		cursor: pointer;
 	}
 
+	.location-container i, .date-container i {
+		margin-right: 5px;
+	}
+
 	.vertical-padding {
 		padding: 10px 0px;
+	}
+
+	.normal-back-btn {
+		margin: 10px;
+	}
+
+	.sticky-back-btn {
+		position: fixed;
+		top: 10px;
+		left: 10px;
 	}
 
 </style>
 {% endblock %}
 
 {% block content %}
+<a href="/item-listing" id="back-btn" class="btn btn-light normal-back-btn">
+	<i class="fas fa-arrow-left"></i>
+	Back to Listings
+</a>
+
 <div class="details-container">
 	<img data="image">
 	<div class="text-container">
@@ -74,8 +93,8 @@
 
 		<h1 data="title"></h1>
 		<div>
-			<span data="location"></span> |
-			<span data="date"></span>
+			<div class="location-container" data="location"></div>
+			<div class="date-container" data="date"></div>
 		</div>
 		<div>
 			<strong data="user"></strong>
@@ -85,10 +104,10 @@
 
 		<div data="comments" class="vertical-padding"></div>
 		<div class="form-group input-group">
-			<input name="new-comment" placeholder="Add a comment..." class="form-control">
+			<input name="new-comment" placeholder="Leave a question, comment, or concern..." class="form-control">
 			<div class="input-group-append">
-				<button data-action="add-comment" class="btn btn-outline-dark" id="button-addon2">
-					Submit
+				<button data-action="comment" class="btn btn-outline-dark" id="button-addon2">
+					Post
 				</button>
 			</div>
 		</div>

@@ -31,37 +31,65 @@
 		height: auto;
 	}
 
+	.small {
+		font-size: 12px;
+	}
+
+	.auto-delete-component {
+		width: 25%;
+		display: inline-block;
+	}
+
+	.auto-delete-component i {
+		display: block;
+		margin-bottom: 5px;
+	}
+
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="details-container">
-	<form id="form" action="/item-submit" method="POST">
+	<form id="form" enctype="multipart/form-data" action="/item-submit" method="POST">
 		<h2>Share New Food</h2>
 		<input type="hidden" name="id"/>
 		<div class="form-group image">
 		</div>
 		<div class="form-group">
-			<label for="image">Image URL</label>
-			<input required name="image" placeholder="Image URL" class="form-control" data-error="Please enter an image url" />
-			<!-- <input type="file" name="pic" class="form-control-file" accept="image/*"> -->
+			<label for="image">Image</label>
 		  	<div class="custom-file form-group">
-		    	<input type="file" class="custom-file-input" id="validatedCustomFile" required>
-		    	<label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-		    	<div class="invalid-feedback">Example invalid custom file feedback</div>
+		    	<input required name="image" type="file" accept="image/*">
 		  	</div>
 		</div>
 		<div class="form-group">
 			<label for="title">Title</label>
-			<input required name="title" placeholder="Title" class="form-control" data-error="Please enter a title" />
+			<input required name="title" placeholder="Title" class="form-control"/>
 		</div>
 		<div class="form-group">
 			<label for="location">Location</label>
-			<input required name="location" placeholder="Location" class="form-control" data-error="Please enter a location" />
+			<input required name="location" placeholder="Location" class="form-control"/>
 		</div>
 		<div class="form-group">
 			<label for="description">Description</label>
-			<textarea name="description" placeholder="Description" class="form-control"></textarea>
+			<textarea required name="description" placeholder="Description" class="form-control"></textarea>
+		</div>
+		<div class="form-group">
+			<label for="auto-delete">
+				Auto-Delete Post (Optional)
+				<div class="small">
+					*This will automatically remove your item from the listings page by the specified date and time.
+				</div>
+			</label>
+			<div name="auto-delete">
+				<div class="auto-delete-component">
+					<i class="far fa-calendar-alt"></i>
+					<input type="date" name="deleteByDate" class="form-control">
+				</div>
+				<div class="auto-delete-component">
+					<i class="far fa-clock"></i>
+					<input type="time" name="deleteByTime" class="form-control">
+				</div>
+			</div>
 		</div>
 		Tags
 		<div class="tags form-group">

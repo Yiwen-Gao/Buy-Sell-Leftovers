@@ -1,8 +1,23 @@
 $(document).ready(function() {
 
-	function displaySearchResults() {
+	var display = () => {
 		$("#results").empty();
+		$("#error-msg-container").empty();
 
+		if (results.length === 0) 
+			displayErrorMessage();
+		else
+			displaySearchResults();
+	}
+
+	var displayErrorMessage = () => {
+		const errorMsg = $("<div class='error-msg'>Sorry, there were no results for your search.</div>");
+		const listingBtn = $("<a href='/item-listing' class='btn btn-light'>Browse All Listings</a>");
+		$("#error-msg-container").append(errorMsg);
+		$("#error-msg-container").append(listingBtn);
+	}
+
+	function displaySearchResults() {
 		var entries = [];
 		Object.assign(entries, results).reverse();
 		var count = 0;
@@ -13,10 +28,17 @@ $(document).ready(function() {
 			const image = $("<img src='" + item["image"] + "' class='card-img-top' />");		
 			const title = $("<h5 class='card-title'>" + item["title"] + "</h5>");
 
-			const locationDate = $(`<span class='card-text text-muted'>${item["location"]} | ${item["date"]}</span>`);
-			const likes = $(`<span><i class="fas fa-heart"></i> ${item["likes"].length}</span>`);
+			const date = new Date(item["createdTime"]);
+			const formattedDate = date.toLocaleString("default", {
+				"month": "short",
+				"day": "numeric",
+				"hour": "numeric",
+				"minute": "numeric"
+			});
+			const description = $(`<span class='card-text text-muted'>${item["location"]} | ${formattedDate}</span>`);
+			const likes = $(`<span><i class="fas fa-heart"></i> ${Object.keys(item["likes"]).length}</span>`);
 			var info = $("<div class='card-info'>");
-			info.append(locationDate);
+			info.append(description);
 			info.append(likes);
 
 			var body = $("<div class='card-body'>");
@@ -34,7 +56,7 @@ $(document).ready(function() {
 		
 	}
 
-    displaySearchResults();
+    display();
     console.log(results);
 
 });
