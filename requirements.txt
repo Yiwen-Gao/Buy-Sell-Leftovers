@@ -3,7 +3,7 @@ botocore==1.13.35
 chardet==3.0.4
 Flask==1.0.2
 itsdangerous==1.1.0
-Jinja2==2.10
+Jinja2==2.11.3
 MarkupSafe==1.1.1
 mpmath==1.1.0
 requests==2.21.0
